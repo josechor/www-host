@@ -18,14 +18,17 @@ function checkForm($datos) : array
         } else {
             $erroresJson = "";
             foreach ($modulos as $modulo => $alumnos) {
+                var_dump($modulo);
                 if (empty($modulo)) {
                     $erroresJson .= "El nombre del módulo no puede estar vacio<br/>";
+                }
+                if(empty($modulos[$modulo])){
+                    $erroresJson .= "El modulo ".htmlentities($modulo)." esta vacio";
                 }
                 if (!is_array($alumnos)) {
                     $erroresJson .= "El módulo " . htmlentities($modulo) . " no tiene un array de alumnos<br/>";
                 } else {
                     foreach ($alumnos as $nombre => $nota) {
-                        var_dump($nota);
                         if (empty($nombre)) {
                             $erroresJson .= "El módulo " . htmlentities($modulo) . " tiene un alumno sin nombre<br/>";
                         }
