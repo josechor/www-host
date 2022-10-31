@@ -10,14 +10,48 @@
 
     <div class="col-12">
         <div class="card shadow mb-4">
-            <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Trabajo notas</h6>                                    
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Trabajo notas</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
                 <!--<form action="./?sec=formulario" method="post">                   -->
                 <form method="post" action="./?sec=calculoNotas.joseramon">
+                    <div class="alert alert-success">
+                        <?php
+                        if (isset($data['resultado'])) {
+                        ?>
+
+                            <div>
+                                <h6>Resultado por modulos</h6>
+                            </div>
+
+                            <div>
+                                <table>
+                                    <thead>
+                                        <th>Módulo</th>
+                                        <th>Media</th>
+                                        <th>Aprobados</th>
+                                        <th>Suspensos</th>
+                                        <th>Máximi</th>
+                                        <th>Mínimo</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($data['resultado']['modulos'] as $nombreModulo => $datos) {
+                                        ?>
+                                            
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        <?php
+                        }
+                        ?>
+                    </div>
 
                     <input type="hidden" name="sec" value="formulario" />
                     <div class="mb-3">
@@ -27,11 +61,10 @@
                     </div>
 
                     <div class="mb-3">
-                        <input type="submit" value="Enviar" name="enviar" class="btn btn-primary"/>
+                        <input type="submit" value="Enviar" name="enviar" class="btn btn-primary" />
                     </div>
                 </form>
             </div>
         </div>
-    </div>                        
+    </div>
 </div>
-

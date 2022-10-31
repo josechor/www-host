@@ -6,7 +6,7 @@ if (isset($_POST['enviar'])) {
     $data['errores'] = checkForm($_POST);
     $data['input'] = filter_var_array($_POST);
     if (count($data['errores']) === 0) {
-        $jsonArray = json_decode($datos['datos'], true);
+        $jsonArray = json_decode($_POST['datos'], true);
         $data['resultado'] = datosAsig($jsonArray);
     }
 }
@@ -14,8 +14,60 @@ if (isset($_POST['enviar'])) {
 
 function datosAsig($jsonArray): array
 {
+    $resultado = [];
+    $alumnos = [];
 
-    return array();
+    foreach ($jsonArray as $materia => $notas) {
+        $resultado[$materia] = [];
+        $suspensos = 0;
+        $aprobados = 0;
+        $max = [
+            'alumno' => '',
+            'nota' => -1
+        ];
+        $min = [
+            'alumno' => '',
+            'nota' => 11
+        ];
+        $notaAcumulada = 0;
+        $contarAlumnos = 0;
+        $cantidadNotas = 0;
+
+        foreach ($notas as $alumno => $todasNotas) {
+            if(!isset($alumnos[$alumno])){
+                $alumnos[$alumno] = ['aprobados' => 0, 'suspensos' => 0];
+            }
+            $contarAlumnos++;
+            foreach ($todasNotas as $n => $valorNota) {
+                $cantidadNotas++;
+                $notaAcumulada += $valorNota;
+
+                if($valorNota < 5){
+                    $suspensos++;
+                    $alumnos[$alumno]['suspensos']++;
+                }else{
+                    $aprobados++;
+                    $alumnos[$alumno]['aprobados']++;
+                }
+
+                if($valorNota > $max['nota']){
+                    $max['alumno'] = $alumno;
+                    $max['nota'] = $valorNota;
+                }
+                if($valorNota < $min['nota']){
+                    $min['alumno'] = $alumno;
+                    $min['nota'] = $valorNota;
+                }
+            }
+        }
+        
+        $resultado[$materia]['media'] = $notaAcumulada/$cantidadNotas;
+        $resultado[$materia]['max'] = $max;
+        $resultado[$materia]['min'] = $min;
+        $resultado[$materia]['suspensos'] = $suspensos;
+        $resultado[$materia]['aprobados'] = $aprobados;
+    }
+    return array('modulos' => $resultado, 'alumnos' => $alumnos);
 }
 
 function checkForm($datos): array
