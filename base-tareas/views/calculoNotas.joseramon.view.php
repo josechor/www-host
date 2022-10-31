@@ -8,6 +8,103 @@
 
 <div class="row">
 
+    <div class="col-12 col-lg-6">
+        <?php
+        if (isset($data['resultado']['modulos'])) {
+        ?>
+            <div class="alert alert-success card-body col-12">
+                <div>
+                    <h6>Resultado por modulos</h6>
+                </div>
+
+                <div>
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Módulo</th>
+                            <th>Media</th>
+                            <th>Aprobados</th>
+                            <th>Suspensos</th>
+                            <th>Máximo</th>
+                            <th>Mínimo</th>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($data['resultado']['modulos'] as $nombreModulo => $datos) {
+                            ?>
+                                <tr>
+                                    <td><?php echo ucfirst($nombreModulo); ?></td>
+                                    <td><?php echo number_format($datos['media'], 2, ',', '.'); ?></td>
+                                    <td><?php echo $datos['aprobados']; ?></td>
+                                    <td><?php echo $datos['suspensos']; ?></td>
+                                    <td><?php echo $datos['max']['alumno'] . ': ' . $datos['max']['nota']; ?></td>
+                                    <td><?php echo $datos['min']['alumno'] . ': ' . $datos['min']['nota']; ?></td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <?php
+                if (isset($data['resultado']['alumnos'])) {
+                ?>
+                    <div class="alert alert-success">
+
+                    </div>
+                <?php
+                }
+                ?>
+
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <?php
+                if (isset($data['resultado']['alumnos'])) {
+                ?>
+                    <div class="alert alert-warning">
+
+                    </div>
+                <?php
+                }
+                ?>
+
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <?php
+                if (isset($data['resultado']['alumnos'])) {
+                ?>
+                    <div class="alert alert-primary">
+
+                    </div>
+                <?php
+                }
+                ?>
+
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <?php
+                if (isset($data['resultado']['alumnos'])) {
+                ?>
+                    <div class="alert alert-danger">
+
+                    </div>
+                <?php
+                }
+                ?>
+
+            </div>
+
+        <?php
+        }
+        ?>
+    </div>
+
+
     <div class="col-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -17,50 +114,7 @@
             <div class="card-body">
                 <!--<form action="./?sec=formulario" method="post">                   -->
                 <form method="post" action="./?sec=calculoNotas.joseramon">
-                    <?php
-                    if (isset($data['resultado']['modulos'])) {
-                    ?>
-                        <div class="alert alert-success">
 
-
-                            <div>
-                                <h6>Resultado por modulos</h6>
-                            </div>
-
-                            <div>
-                                <table>
-                                    <thead>
-                                        <th>Módulo</th>
-                                        <th>Media</th>
-                                        <th>Aprobados</th>
-                                        <th>Suspensos</th>
-                                        <th>Máximo</th>
-                                        <th>Mínimo</th>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        foreach ($data['resultado']['modulos'] as $nombreModulo => $datos) {
-                                        ?>
-                                            <tr>
-                                                <td><?php echo ucfirst($nombreModulo); ?></td>
-                                                <td><?php echo number_format($datos['media'], 2, ',', '.'); ?></td>
-                                                <td><?php echo $datos['aprobados']; ?></td>
-                                                <td><?php echo $datos['suspensos']; ?></td>
-                                                <td><?php echo $datos['max']['alumno'] . ': ' . $datos['max']['nota']; ?></td>
-                                                <td><?php echo $datos['min']['alumno'] . ': ' . $datos['min']['nota']; ?></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                        </div>
-                    <?php
-                    }
-                    ?>
                     <input type="hidden" name="sec" value="formulario" />
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1">Exemplo textarea</label>
