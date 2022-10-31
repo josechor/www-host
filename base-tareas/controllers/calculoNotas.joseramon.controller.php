@@ -5,7 +5,6 @@ $data['resultado'] = [];
 if (isset($_POST['enviar'])) {
     $data['errores'] = checkForm($_POST);
     $data['input'] = filter_var_array($_POST);
-    var_dump(count($data['errores']));
     if (count($data['errores']) === 0) {
         $jsonArray = json_decode($_POST['datos'], true);
         $data['resultado'] = datosAsig($jsonArray);
@@ -20,8 +19,10 @@ function datosAsig($jsonArray): array
 
     foreach ($jsonArray as $materia => $notas) {
         $resultado[$materia] = [];
-        $suspensos = 0;
-        $aprobados = 0;
+        $eSuspensos = 0;
+        $eAprobados = 0;
+        $aAprobadas = 0;
+        $aSuspensas = 0;
         $max = [
             'alumno' => '',
             'nota' => -1
@@ -35,8 +36,10 @@ function datosAsig($jsonArray): array
         $cantidadNotas = 0;
 
         foreach ($notas as $alumno => $todasNotas) {
+            $notaMateria = 0;
+            $notasMateria = 0;
             if(!isset($alumnos[$alumno])){
-                $alumnos[$alumno] = ['aprobados' => 0, 'suspensos' => 0];
+                $alumnos[$alumno] = ['eAprobados' => 0, 'eSuspensos' => 0, 'aAprobadas' => 0, 'aSuspensas' => 0];
             }
             $contarAlumnos++;
             foreach ($todasNotas as $n => $valorNota) {
@@ -44,11 +47,11 @@ function datosAsig($jsonArray): array
                 $notaAcumulada += $valorNota;
 
                 if($valorNota < 5){
-                    $suspensos++;
-                    $alumnos[$alumno]['suspensos']++;
+                    $eSuspensos++;
+                    $alumnos[$alumno]['eSuspensos']++;
                 }else{
-                    $aprobados++;
-                    $alumnos[$alumno]['aprobados']++;
+                    $eAprobados++;
+                    $alumnos[$alumno]['eAprobados']++;
                 }
 
                 if($valorNota > $max['nota']){
@@ -59,14 +62,22 @@ function datosAsig($jsonArray): array
                     $min['alumno'] = $alumno;
                     $min['nota'] = $valorNota;
                 }
+
+                $notasMateria++;
+                $notaMateria = ($valorNota + $notaMateria)/$notasMateria;
+            }
+            if($notaMateria>=5){
+                $alumnos[$alumno]['aAprobadas']++;
+            }else{
+                $alumnos[$alumno]['aSuspensas']++;
             }
         }
         
         $resultado[$materia]['media'] = $notaAcumulada/$cantidadNotas;
         $resultado[$materia]['max'] = $max;
         $resultado[$materia]['min'] = $min;
-        $resultado[$materia]['suspensos'] = $suspensos;
-        $resultado[$materia]['aprobados'] = $aprobados;
+        $resultado[$materia]['suspensos'] = $eSuspensos;
+        $resultado[$materia]['aprobados'] = $eAprobados;
     }
     return array('modulos' => $resultado, 'alumnos' => $alumnos);
 }
@@ -83,7 +94,6 @@ function checkForm($datos): array
         } else {
             $erroresJson = "";
             foreach ($modulos as $modulo => $alumnos) {
-                var_dump($modulo);
                 if (empty($modulo)) {
                     $erroresJson .= "El nombre del módulo no puede estar vacio<br/>";
                 }

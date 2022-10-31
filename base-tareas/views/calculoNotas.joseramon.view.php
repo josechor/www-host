@@ -52,12 +52,20 @@
                 if (isset($data['resultado']['alumnos'])) {
                 ?>
                     <div class="alert alert-success">
-
+                        <h6>Alumnos con todo aprobado</h6>
+                        <ul>
+                            <?php
+                            foreach ($data['resultado']['alumnos'] as $nAlum => $datos) {
+                                if ($datos['suspensos'] === 0) {
+                                    echo "<li>$nAlum</li>";
+                                }
+                            }
+                            ?>
+                        </ul>
                     </div>
                 <?php
                 }
                 ?>
-
             </div>
 
             <div class="col-12 col-lg-6">
@@ -65,20 +73,37 @@
                 if (isset($data['resultado']['alumnos'])) {
                 ?>
                     <div class="alert alert-warning">
-
+                        <h6>Alumnos que suspendieron como mucho 1</h6>
+                        <ul>
+                            <?php
+                            foreach ($data['resultado']['alumnos'] as $nAlum => $datos) {
+                                if ($datos['suspensos'] === 1) {
+                                    echo "<li>$nAlum</li>";
+                                }
+                            }
+                            ?>
+                        </ul>
                     </div>
                 <?php
                 }
                 ?>
-
             </div>
 
             <div class="col-12 col-lg-6">
-                <?php
+            <?php
                 if (isset($data['resultado']['alumnos'])) {
                 ?>
                     <div class="alert alert-primary">
-
+                        <h6>Alumnos que promocionan</h6>
+                        <ul>
+                            <?php
+                            foreach ($data['resultado']['alumnos'] as $nAlum => $datos) {
+                                if ($datos['suspensos'] <= 1) {
+                                    echo "<li>$nAlum</li>";
+                                }
+                            }
+                            ?>
+                        </ul>
                     </div>
                 <?php
                 }
@@ -87,11 +112,20 @@
             </div>
 
             <div class="col-12 col-lg-6">
-                <?php
+            <?php
                 if (isset($data['resultado']['alumnos'])) {
                 ?>
                     <div class="alert alert-danger">
-
+                        <h6>Alumnos que no promocionan</h6>
+                        <ul>
+                            <?php
+                            foreach ($data['resultado']['alumnos'] as $nAlum => $datos) {
+                                if ($datos['suspensos'] > 1) {
+                                    echo "<li>$nAlum</li>";
+                                }
+                            }
+                            ?>
+                        </ul>
                     </div>
                 <?php
                 }
