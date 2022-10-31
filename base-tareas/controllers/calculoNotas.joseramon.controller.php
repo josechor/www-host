@@ -1,12 +1,24 @@
 <?php
+declare(strict_types=1);
 $data['resultado'] = [];
 
 if (isset($_POST['enviar'])) {
     $data['errores'] = checkForm($_POST);
+    $data['input'] = filter_var_array($_POST);
+    if (count($data['errores']) === 0) {
+        $jsonArray = json_decode($datos['datos'], true);
+        $data['resultado'] = datosAsig($jsonArray);
+    }
 }
 
 
-function checkForm($datos) : array
+function datosAsig($jsonArray): array
+{
+
+    return array();
+}
+
+function checkForm($datos): array
 {
     $errores = [];
     if (empty($datos['datos'])) {
@@ -22,8 +34,8 @@ function checkForm($datos) : array
                 if (empty($modulo)) {
                     $erroresJson .= "El nombre del módulo no puede estar vacio<br/>";
                 }
-                if(empty($modulos[$modulo])){
-                    $erroresJson .= "El modulo ".htmlentities($modulo)." esta vacio";
+                if (empty($modulos[$modulo])) {
+                    $erroresJson .= "El modulo " . htmlentities($modulo) . " esta vacio";
                 }
                 if (!is_array($alumnos)) {
                     $erroresJson .= "El módulo " . htmlentities($modulo) . " no tiene un array de alumnos<br/>";
@@ -32,12 +44,12 @@ function checkForm($datos) : array
                         if (empty($nombre)) {
                             $erroresJson .= "El módulo " . htmlentities($modulo) . " tiene un alumno sin nombre<br/>";
                         }
-                        if(empty($nota)){
-                            $erroresJson .= "El módulo " . htmlentities($modulo) . " tiene un alumno ".htmlentities($nombre)." que no tiene notas<br/>";
-                        }else{
+                        if (empty($nota)) {
+                            $erroresJson .= "El módulo " . htmlentities($modulo) . " tiene un alumno " . htmlentities($nombre) . " que no tiene notas<br/>";
+                        } else {
                             foreach ($nota as $notas => $valor) {
                                 if ($valor > 10 || $valor < 0) {
-                                    $erroresJson .= "Módulo ".htmlentities($modulo). ", almuno ".htmlentities($nombre). " tiene una de $valor que no es valida<br/>";
+                                    $erroresJson .= "Módulo " . htmlentities($modulo) . ", almuno " . htmlentities($nombre) . " tiene una de $valor que no es valida<br/>";
                                 }
                             }
                         }
