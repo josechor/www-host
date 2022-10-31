@@ -8,6 +8,7 @@ if (isset($_POST['enviar'])) {
     if (count($data['errores']) === 0) {
         $jsonArray = json_decode($_POST['datos'], true);
         $data['resultado'] = datosAsig($jsonArray);
+        var_dump($data['resultado']['alumnos']);
     }
 }
 
@@ -38,6 +39,7 @@ function datosAsig($jsonArray): array
         foreach ($notas as $alumno => $todasNotas) {
             $notaMateria = 0;
             $notasMateria = 0;
+            $mediaMateria = 0;
             if(!isset($alumnos[$alumno])){
                 $alumnos[$alumno] = ['eAprobados' => 0, 'eSuspensos' => 0, 'aAprobadas' => 0, 'aSuspensas' => 0];
             }
@@ -64,11 +66,14 @@ function datosAsig($jsonArray): array
                 }
 
                 $notasMateria++;
-                $notaMateria = ($valorNota + $notaMateria)/$notasMateria;
+                $notaMateria = $valorNota + $notaMateria;
+                $mediaMateria = $notaMateria/$notasMateria;         
             }
-            if($notaMateria>=5){
+            if($mediaMateria>=5){
+                $aAprobadas++;
                 $alumnos[$alumno]['aAprobadas']++;
             }else{
+                $aSuspensas++;
                 $alumnos[$alumno]['aSuspensas']++;
             }
         }
@@ -76,8 +81,10 @@ function datosAsig($jsonArray): array
         $resultado[$materia]['media'] = $notaAcumulada/$cantidadNotas;
         $resultado[$materia]['max'] = $max;
         $resultado[$materia]['min'] = $min;
-        $resultado[$materia]['suspensos'] = $eSuspensos;
-        $resultado[$materia]['aprobados'] = $eAprobados;
+        $resultado[$materia]['eSuspensos'] = $eSuspensos;
+        $resultado[$materia]['eAprobados'] = $eAprobados;
+        $resultado[$materia]['aSuspensos'] = $aAprobadas;
+        $resultado[$materia]['aAprobados'] = $aSuspensas;
     }
     return array('modulos' => $resultado, 'alumnos' => $alumnos);
 }

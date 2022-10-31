@@ -22,8 +22,10 @@
                         <thead>
                             <th>Módulo</th>
                             <th>Media</th>
-                            <th>Aprobados</th>
-                            <th>Suspensos</th>
+                            <th>Examenes aprobados</th>
+                            <th>Examenes suspensos</th>
+                            <th>Asignaturas aprobados</th>
+                            <th>Asinaturas suspensos</th>
                             <th>Máximo</th>
                             <th>Mínimo</th>
                         </thead>
@@ -34,8 +36,10 @@
                                 <tr>
                                     <td><?php echo ucfirst($nombreModulo); ?></td>
                                     <td><?php echo number_format($datos['media'], 2, ',', '.'); ?></td>
-                                    <td><?php echo $datos['aprobados']; ?></td>
-                                    <td><?php echo $datos['suspensos']; ?></td>
+                                    <td><?php echo $datos['eAprobados']; ?></td>
+                                    <td><?php echo $datos['eSuspensos']; ?></td>
+                                    <td><?php echo $datos['aAprobados']; ?></td>
+                                    <td><?php echo $datos['aSuspensos']; ?></td>
                                     <td><?php echo $datos['max']['alumno'] . ': ' . $datos['max']['nota']; ?></td>
                                     <td><?php echo $datos['min']['alumno'] . ': ' . $datos['min']['nota']; ?></td>
                                 </tr>
