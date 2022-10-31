@@ -17,10 +17,11 @@
             <div class="card-body">
                 <!--<form action="./?sec=formulario" method="post">                   -->
                 <form method="post" action="./?sec=calculoNotas.joseramon">
-                    <div class="alert alert-success">
-                        <?php
-                        if (isset($data['resultado'])) {
-                        ?>
+                    <?php
+                    if (isset($data['resultado']['modulos'])) {
+                    ?>
+                        <div class="alert alert-success">
+
 
                             <div>
                                 <h6>Resultado por modulos</h6>
@@ -33,14 +34,21 @@
                                         <th>Media</th>
                                         <th>Aprobados</th>
                                         <th>Suspensos</th>
-                                        <th>Máximi</th>
+                                        <th>Máximo</th>
                                         <th>Mínimo</th>
                                     </thead>
                                     <tbody>
                                         <?php
                                         foreach ($data['resultado']['modulos'] as $nombreModulo => $datos) {
                                         ?>
-                                            
+                                            <tr>
+                                                <td><?php echo ucfirst($nombreModulo); ?></td>
+                                                <td><?php echo number_format($datos['media'], 2, ',', '.'); ?></td>
+                                                <td><?php echo $datos['aprobados']; ?></td>
+                                                <td><?php echo $datos['suspensos']; ?></td>
+                                                <td><?php echo $datos['max']['alumno'] . ': ' . $datos['max']['nota']; ?></td>
+                                                <td><?php echo $datos['min']['alumno'] . ': ' . $datos['min']['nota']; ?></td>
+                                            </tr>
                                         <?php
                                         }
                                         ?>
@@ -48,11 +56,11 @@
                                 </table>
                             </div>
 
-                        <?php
-                        }
-                        ?>
-                    </div>
 
+                        </div>
+                    <?php
+                    }
+                    ?>
                     <input type="hidden" name="sec" value="formulario" />
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1">Exemplo textarea</label>

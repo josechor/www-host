@@ -5,6 +5,7 @@ $data['resultado'] = [];
 if (isset($_POST['enviar'])) {
     $data['errores'] = checkForm($_POST);
     $data['input'] = filter_var_array($_POST);
+    var_dump(count($data['errores']));
     if (count($data['errores']) === 0) {
         $jsonArray = json_decode($_POST['datos'], true);
         $data['resultado'] = datosAsig($jsonArray);
