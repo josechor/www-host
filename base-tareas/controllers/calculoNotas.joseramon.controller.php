@@ -25,11 +25,18 @@ function checkForm($datos) : array
                     $erroresJson .= "El módulo " . htmlentities($modulo) . " no tiene un array de alumnos<br/>";
                 } else {
                     foreach ($alumnos as $nombre => $nota) {
+                        var_dump($nota);
                         if (empty($nombre)) {
                             $erroresJson .= "El módulo " . htmlentities($modulo) . " tiene un alumno sin nombre<br/>";
                         }
-                        if ($nota > 10 && $nota < 0) {
-                            $erroresJson .= "Módulo ".htmlentities($modulo). ", almuno ".htmlentities($nombre). "tiene una nota de $nota<br/>";
+                        if(empty($nota)){
+                            $erroresJson .= "El módulo " . htmlentities($modulo) . " tiene un alumno ".htmlentities($nombre)." que no tiene notas<br/>";
+                        }else{
+                            foreach ($nota as $notas => $valor) {
+                                if ($valor > 10 || $valor < 0) {
+                                    $erroresJson .= "Módulo ".htmlentities($modulo). ", almuno ".htmlentities($nombre). " tiene una de $valor que no es valida<br/>";
+                                }
+                            }
                         }
                     }
                 }
