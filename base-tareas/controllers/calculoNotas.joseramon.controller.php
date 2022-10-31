@@ -8,7 +8,6 @@ if (isset($_POST['enviar'])) {
     if (count($data['errores']) === 0) {
         $jsonArray = json_decode($_POST['datos'], true);
         $data['resultado'] = datosAsig($jsonArray);
-        var_dump($data['resultado']['alumnos']);
     }
 }
 
