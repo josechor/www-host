@@ -60,7 +60,7 @@
                         <ul>
                             <?php
                             foreach ($data['resultado']['alumnos'] as $nAlum => $datos) {
-                                if ($datos['suspensos'] === 0) {
+                                if ($datos['aSuspensas'] === 0) {
                                     echo "<li>$nAlum</li>";
                                 }
                             }
@@ -81,7 +81,7 @@
                         <ul>
                             <?php
                             foreach ($data['resultado']['alumnos'] as $nAlum => $datos) {
-                                if ($datos['suspensos'] === 1) {
+                                if ($datos['aSuspensas'] === 1) {
                                     echo "<li>$nAlum</li>";
                                 }
                             }
@@ -102,7 +102,7 @@
                         <ul>
                             <?php
                             foreach ($data['resultado']['alumnos'] as $nAlum => $datos) {
-                                if ($datos['suspensos'] <= 1) {
+                                if ($datos['aSuspensas'] <= 1) {
                                     echo "<li>$nAlum</li>";
                                 }
                             }
@@ -124,7 +124,7 @@
                         <ul>
                             <?php
                             foreach ($data['resultado']['alumnos'] as $nAlum => $datos) {
-                                if ($datos['suspensos'] > 1) {
+                                if ($datos['aSuspensas'] > 1) {
                                     echo "<li>$nAlum</li>";
                                 }
                             }
