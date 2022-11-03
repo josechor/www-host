@@ -5,7 +5,7 @@ $filename = isset($_GET['sec']) ? $_GET['sec'] : 'inicio';
 if(substr($filename, 0, 1) == "_" || $filename == "index" || !file_exists(getControllerName($filename))){
     $filename = "inicio";
 }
-require_once getControllerName($filename);
+require_once getControllerName($filename);  
 
 /**
  * 
