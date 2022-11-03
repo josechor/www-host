@@ -82,8 +82,8 @@ function datosAsig($jsonArray): array
         $resultado[$materia]['min'] = $min;
         $resultado[$materia]['eSuspensos'] = $eSuspensos;
         $resultado[$materia]['eAprobados'] = $eAprobados;
-        $resultado[$materia]['aSuspensos'] = $aAprobadas;
-        $resultado[$materia]['aAprobados'] = $aSuspensas;
+        $resultado[$materia]['aSuspensos'] = $aSuspensas;
+        $resultado[$materia]['aAprobados'] = $aAprobadas;
     }
     return array('modulos' => $resultado, 'alumnos' => $alumnos);
 }

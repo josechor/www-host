@@ -24,8 +24,8 @@
                             <th>Media</th>
                             <th>Examenes aprobados</th>
                             <th>Examenes suspensos</th>
-                            <th>Asignaturas aprobados</th>
-                            <th>Asinaturas suspensos</th>
+                            <th>Alumnos aprobados</th>
+                            <th>Alumnos suspensos</th>
                             <th>Máximo</th>
                             <th>Mínimo</th>
                         </thead>
@@ -157,7 +157,7 @@
                 <input type="hidden" name="sec" value="formulario" />
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1">Exemplo textarea</label>
-                    <textarea class="form-control" id="datos" name="datos" rows="10"></textarea>
+                    <textarea class="form-control" id="datos" name="datos" rows="10"><?php echo isset($data['input']['datos']) ? $data['input']['datos'] : ''; ?></textarea>
                     <p class="text-danger small"><?php echo isset($data['errores']['datos']) ? $data['errores']['datos'] : ''; ?></p>
                 </div>
 
